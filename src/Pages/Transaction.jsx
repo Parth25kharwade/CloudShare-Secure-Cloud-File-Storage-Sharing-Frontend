@@ -1,8 +1,10 @@
+import DashboardLayout from "../Layout/Dashboard.jsx";
+
 const Transaction = () => {
     return (
-        <div>
-            <h1>Tanscation</h1>
-        </div>
+        <DashboardLayout >
+            <div>Transaction Page</div>
+        </DashboardLayout>
     )
 }
 export default Transaction;

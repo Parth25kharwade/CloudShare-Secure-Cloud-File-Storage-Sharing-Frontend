@@ -1,7 +1,7 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Landing from "./Pages/Landing.jsx";
 import Dashboard from "./Pages/Dashboard.jsx";
-import {Upload} from "lucide-react";
+import Upload from "./Pages/Upload.jsx";
 import Myfiles from "./Pages/Myfiles.jsx";
 import Subscription from "./Pages/Subscription.jsx";
 import Transaction from "./Pages/Transaction.jsx";
@@ -48,7 +48,7 @@ const App= ()=>{
                         </SignedOut>
                     </>
                 } />
-                <Route path="subscription" element={
+                <Route path="subscriptions" element={
                     <>
                         <SignedIn>
                             <Subscription/>
@@ -59,7 +59,7 @@ const App= ()=>{
                         </SignedOut>
                     </>
                 } />
-                <Route path="transaction" element={
+                <Route path="transactions" element={
                     <>
                         <SignedIn>
                             <Transaction/>

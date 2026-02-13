@@ -1,7 +1,7 @@
 import { useUser } from "@clerk/clerk-react";
 import { Link, useLocation } from "react-router-dom";
 import { User } from "lucide-react";
-import {SIDE_MENU_DATA} from "../assets/Data.js";
+import { SIDE_MENU_DATA } from "../assets/Data.js";
 
 const SideMenu = () => {
     const { user } = useUser();
@@ -12,7 +12,6 @@ const SideMenu = () => {
 
             {/* Profile Section */}
             <div className="flex flex-col items-center justify-center gap-3 mt-3 mb-7">
-
                 {user?.imageUrl ? (
                     <img
                         src={user.imageUrl}
@@ -33,7 +32,6 @@ const SideMenu = () => {
                         {user?.primaryEmailAddress?.emailAddress}
                     </p>
                 </div>
-
             </div>
 
             {/* Menu Items */}
@@ -46,10 +44,11 @@ const SideMenu = () => {
                         <Link
                             key={item.id}
                             to={item.path}
-                            className={`flex items-center gap-3 px-3 py-2 rounded-lg transition 
-                ${isActive
-                                ? "bg-purple-100 text-purple-600"
-                                : "text-gray-700 hover:bg-gray-100"
+                            className={`flex items-center gap-3 px-3 py-2 rounded-lg transition
+                ${
+                                isActive
+                                    ? "bg-purple-500 text-white font-medium"
+                                    : "text-gray-700 hover:bg-gray-100"
                             }`}
                         >
                             <Icon className="w-5 h-5" />

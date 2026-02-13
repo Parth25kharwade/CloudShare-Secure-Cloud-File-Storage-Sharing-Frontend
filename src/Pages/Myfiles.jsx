@@ -1,6 +1,10 @@
+import DashboardLayout from "../Layout/Dashboard.jsx";
+
 const Myfiles = () => {
     return (
-        <div>Mayfiles</div>
+       <DashboardLayout >
+           <div>My Files</div>
+       </DashboardLayout>
     )
 }
 export default Myfiles;

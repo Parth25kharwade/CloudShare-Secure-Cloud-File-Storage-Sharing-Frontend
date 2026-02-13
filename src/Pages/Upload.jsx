@@ -1,8 +1,11 @@
+import DashboardLayout from "../Layout/Dashboard.jsx";
+
+
 const Upload = () => {
     return(
-        <div>
-            Upload
-        </div>
-    )
-}
+       <DashboardLayout >
+           <div>Upload Page</div>
+       </DashboardLayout>
+    );
+};
 export default Upload;

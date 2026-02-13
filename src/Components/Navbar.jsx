@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Menu, X, Share2, Wallet } from "lucide-react";
+import { Menu, X, Share2 } from "lucide-react";
 import { SignedIn, UserButton } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
-import SideMenu from "./SideMenu";
+import SideMenu from "./SideMenu.jsx";
+import CreditsDisplay from "./CreditsDisplay.jsx";
+
 
 const Navbar = () => {
     const [openSideMenu, setOpenSideMenu] = useState(false);
@@ -53,7 +55,7 @@ const Navbar = () => {
                             to="/subscriptions"
                             className="p-2 rounded hover:bg-gray-100 transition"
                         >
-                            <Wallet className="w-5 h-5 text-gray-700" />
+                            <CreditsDisplay credits={10}/>
                         </Link>
 
                         <UserButton afterSignOutUrl="/" />
@@ -65,7 +67,7 @@ const Navbar = () => {
             {/* Mobile Side Menu */}
             {openSideMenu && (
                 <div className="fixed top-[73px] left-0 right-0 bg-white border-b border-gray-200 lg:hidden z-20 shadow-md">
-                    <SideMenu closeMenu={closeMenu} />
+                    <SideMenu closeMenu={closeMenu}  />
                 </div>
             )}
 

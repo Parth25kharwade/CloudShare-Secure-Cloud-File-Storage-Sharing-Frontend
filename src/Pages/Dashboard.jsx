@@ -3,7 +3,7 @@ import DashboardLayout from "../Layout/Dashboard.jsx";
 
 const Dashboard = () => {
     return(
-        <DashboardLayout>
+        <DashboardLayout >
             <div>
                 DashBoard Content
             </div>

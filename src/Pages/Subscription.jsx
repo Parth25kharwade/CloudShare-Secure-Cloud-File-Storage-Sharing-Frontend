@@ -1,6 +1,10 @@
+import DashboardLayout from "../Layout/Dashboard.jsx";
+
 const Subscription = () => {
     return (
-        <div>Subscription</div>
+        <DashboardLayout >
+            <div>Subscription Page</div>
+        </DashboardLayout>
     )
 }
 export default Subscription;

@@ -29,7 +29,7 @@ const DashboardLayout = ({ children }) => {
 
                 {/* Desktop Sidebar */}
                 <div className="hidden lg:block">
-                    <SideMenu />
+                    <SideMenu  />
                 </div>
 
                 {/* Main Content */}
