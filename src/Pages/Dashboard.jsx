@@ -5,7 +5,7 @@ const Dashboard = () => {
     return(
         <DashboardLayout>
             <div>
-                <UserButton/>
+                DashBoard Content
             </div>
         </DashboardLayout>
     )

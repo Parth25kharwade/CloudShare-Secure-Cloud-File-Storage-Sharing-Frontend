@@ -1,12 +1,10 @@
-import { useState } from "react";
 import { useUser } from "@clerk/clerk-react";
 import { Navigate } from "react-router-dom";
-import Navbar from "../Components/Navbar.jsx";
-
+import Navbar from "../components/Navbar";
+import SideMenu from "../Components/SideMenu.jsx";
 
 const DashboardLayout = ({ children }) => {
     const { user, isLoaded } = useUser();
-    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     if (!isLoaded) {
         return (
@@ -23,38 +21,19 @@ const DashboardLayout = ({ children }) => {
     return (
         <div className="min-h-screen bg-gray-100">
 
-            {/* Navbar */}
-            <Navbar onToggleSidebar={setSidebarOpen} />
+            {/* Top Navbar */}
+            <Navbar />
 
+            {/* Sidebar + Content */}
             <div className="flex">
 
-                {/* Sidebar */}
-                <aside
-                    className={`fixed lg:static z-40 top-0 left-0 h-full w-64 bg-white shadow-md transform transition-transform duration-300 
-          ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} 
-          lg:translate-x-0`}
-                >
-                    <div className="p-6 space-y-4 mt-16 lg:mt-0">
-                        <a href="/dashboard" className="block hover:text-purple-600">
-                            Dashboard
-                        </a>
-                        <a href="/upload" className="block hover:text-purple-600">
-                            Upload
-                        </a>
-                        <a href="/my-files" className="block hover:text-purple-600">
-                            My Files
-                        </a>
-                        <a href="/subscriptions" className="block hover:text-purple-600">
-                            Subscriptions
-                        </a>
-                        <a href="/transactions" className="block hover:text-purple-600">
-                            Transactions
-                        </a>
-                    </div>
-                </aside>
+                {/* Desktop Sidebar */}
+                <div className="hidden lg:block">
+                    <SideMenu />
+                </div>
 
                 {/* Main Content */}
-                <main className="flex-1 p-6">
+                <main className="flex-1 p-6 bg-gray-50">
                     {children}
                 </main>
 
