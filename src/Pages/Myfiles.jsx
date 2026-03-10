@@ -17,14 +17,10 @@ import {
 } from "lucide-react";
 import {apiEndpoints} from "../utill/apiEndpoint.js";
 import ConfirmationDialog from "../Components/ConfirmationDialogBox.jsx";
+import LinkShareModal from "../Components/LinkShareModal.jsx";
 
 
-const handleShare = (file) => {
-    const shareUrl = `${window.location.origin}/file/${file.id}`;
 
-    navigator.clipboard.writeText(shareUrl);
-    toast.success("Share link copied to clipboard!");
-};
 
 const getFileIcon = (fileName, size = 20) => {
     const extension = fileName.split(".").pop().toLowerCase();
@@ -73,6 +69,28 @@ const Myfiles = () => {
         setDeleteConfirmation({
             isOpen: false,
             fileId: null
+        });
+    };
+    const [shareModal, setShareModal] = useState({
+        isOpen: false,
+        fileId: null,
+        link: ""
+    });
+
+    const openShareModal = (fileId) => {
+        const link = `${window.location.origin}/file/${fileId}`;
+
+        setShareModal({
+            isOpen: true,
+            fileId,
+            link
+        });
+    };
+    const closeShareModal = () => {
+        setShareModal({
+            isOpen: false,
+            fileId: null,
+            link: ""
         });
     };
 
@@ -353,11 +371,12 @@ const Myfiles = () => {
 
                                             {/* Share Link (Only if Public) */}
                                             {file.public && (
-                                                <Share2
-                                                    size={18}
-                                                    onClick={() => handleShare(file)}
-                                                    className="cursor-pointer hover:text-green-600"
-                                                />
+                                                <button
+                                                    onClick={() => openShareModal(file.id)}
+                                                    className="hover:text-green-600 transition"
+                                                >
+                                                    <Share2 size={18} />
+                                                </button>
                                             )}
 
                                             <button
@@ -391,7 +410,14 @@ const Myfiles = () => {
                     /* Grid View */
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         {files.map((file) => (
-                            <FileCard key={file.id} file={file} />
+                            <FileCard
+                                key={file.id}
+                                file={file}
+                                onDownload={handleDownload}
+                                onTogglePublic={toggelTopublic}
+                                onDelete={openDeleteConfirmation}
+                                onShare={openShareModal}
+                            />
                         ))}
                     </div>
                 )}
@@ -405,6 +431,13 @@ const Myfiles = () => {
                     cancelText="Cancel"
                     onConfirm={handelDelete}
                     confirmationButtonClass="bg-red-600 hover:bg-red-700"
+                />
+
+                <LinkShareModal
+                    isOpen={shareModal.isOpen}
+                    onClose={closeShareModal}
+                    link={shareModal.link}
+                    title="Share File"
                 />
             </div>
         </DashboardLayout>

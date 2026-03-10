@@ -7,9 +7,11 @@ import Subscription from "./Pages/Subscription.jsx";
 import Transaction from "./Pages/Transaction.jsx";
 import {RedirectToSignIn, SignedIn, SignedOut, SignIn} from "@clerk/clerk-react";
 import {Toaster} from "react-hot-toast";
+import { UserCreditsProvider} from "./Context/UserCreditsContext.jsx";
 
 const App= ()=>{
     return(
+        <UserCreditsProvider>
         <BrowserRouter>
             <Toaster/>
             <Routes>
@@ -76,6 +78,7 @@ const App= ()=>{
 
             </Routes>
         </BrowserRouter>
+        </UserCreditsProvider>
     )
 }
 export default App;

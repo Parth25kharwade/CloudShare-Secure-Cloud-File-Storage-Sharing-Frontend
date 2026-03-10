@@ -1,13 +1,20 @@
-import { useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import { Menu, X, Share2 } from "lucide-react";
 import { SignedIn, UserButton } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
 import SideMenu from "./SideMenu.jsx";
 import CreditsDisplay from "./CreditsDisplay.jsx";
+import {UserCreditsContext} from "../Context/UserCreditsContext.jsx";
 
 
 const Navbar = () => {
     const [openSideMenu, setOpenSideMenu] = useState(false);
+
+    const { credits,fetchUserCredits } = useContext(UserCreditsContext);
+
+    useEffect(() => {
+        fetchUserCredits()
+    }, [fetchUserCredits]);
 
     const handleToggle = () => {
         setOpenSideMenu(!openSideMenu);
@@ -55,7 +62,7 @@ const Navbar = () => {
                             to="/subscriptions"
                             className="p-2 rounded hover:bg-gray-100 transition"
                         >
-                            <CreditsDisplay credits={10}/>
+                            <CreditsDisplay credits={credits}/>
                         </Link>
 
                         <UserButton afterSignOutUrl="/" />

@@ -12,7 +12,6 @@ import {
     Copy
 } from "lucide-react";
 import { Trash2 } from "lucide-react";
-import toast from "react-hot-toast";
 
 const formatDate = (dateString) => {
     if (!dateString) return "—";
@@ -23,7 +22,11 @@ const formatDate = (dateString) => {
     });
 };
 
-const FileCard = ({ file }) => {
+const FileCard = ({ file,
+                      onDownload,
+                      onTogglePublic,
+                      onDelete,
+                      onShare }) => {
     const [hovered, setHovered] = useState(false);
 
     // ✅ Detect file icon
@@ -56,12 +59,6 @@ const FileCard = ({ file }) => {
         return `${(kb / 1024).toFixed(2)} MB`;
     };
 
-    // ✅ Copy Share Link
-    const handleCopy = () => {
-        const url = `${window.location.origin}/file/${file.id}`;
-        navigator.clipboard.writeText(url);
-        toast.success("Share link copied!");
-    };
 
     return (
         <div
@@ -115,7 +112,7 @@ const FileCard = ({ file }) => {
                         {file.public && (
                             <button
                                 title="Share Link"
-                                onClick={handleCopy}
+                                onClick={() => onShare(file.id)}
                                 className="p-2 bg-white/90 rounded-full hover:bg-white transition text-purple-600"
                             >
                                 <Copy size={18} />
@@ -138,6 +135,7 @@ const FileCard = ({ file }) => {
                         {/* Download */}
                         <button
                             title="Download"
+                            onClick={() => onDownload(file)}
                             className="p-2 bg-white/90 rounded-full hover:bg-white transition text-green-600"
                         >
                             <Download size={18} />
@@ -146,13 +144,14 @@ const FileCard = ({ file }) => {
                         {/* Toggle Public/Private */}
                         <button
                             title={file.public ? "Make Private" : "Make Public"}
+                            onClick={() => onTogglePublic(file)}
                             className="p-2 bg-white/90 rounded-full hover:bg-white transition text-amber-600"
                         >
                             {file.public ? <Lock size={18} /> : <Globe size={18} />}
                         </button>
                         <button
                             title="Delete"
-                            //onClick={handleDelete}
+                            onClick={() => onDelete(file.id)}
                             className="p-2 bg-white/90 rounded-full hover:bg-white transition text-red-600"
                         >
                             <Trash2 size={18} />
