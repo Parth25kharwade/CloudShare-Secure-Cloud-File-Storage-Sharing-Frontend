@@ -4,7 +4,7 @@ import { useAuth } from "@clerk/clerk-react";
 import axios from "axios";
 import { CreditCard, Check, Loader, AlertCircle } from "lucide-react";
 import { UserCreditsContext } from "../context/UserCreditsContext";
-import {apiEndpoints} from "../utill/apiEndpoint.js";
+import { apiEndpoints } from "../utill/apiEndpoint.js";
 
 
 
@@ -195,13 +195,12 @@ const Subscription = () => {
 
                 {message && (
                     <div
-                        className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${
-                            messageType === "error"
+                        className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${messageType === "error"
                                 ? "bg-red-50 text-red-700"
                                 : messageType === "success"
                                     ? "bg-green-50 text-green-700"
                                     : "bg-blue-50 text-blue-700"
-                        }`}
+                            }`}
                     >
                         {messageType === "error" && <AlertCircle size={20} />}
                         {message}
@@ -215,8 +214,8 @@ const Subscription = () => {
                             <h2 className="text-lg font-medium">
                                 Current Credits:
                                 <span className="font-bold text-purple-600 ml-2">
-                  {credits}
-                </span>
+                                    {credits}
+                                </span>
                             </h2>
                         </div>
                         <p className="text-sm text-gray-600">
@@ -229,11 +228,10 @@ const Subscription = () => {
                     {plans.map((plan) => (
                         <div
                             key={plan.id}
-                            className={`border rounded-xl p-6 ${
-                                plan.recommended
+                            className={`border rounded-xl p-6 ${plan.recommended
                                     ? "border-purple-200 bg-purple-50 shadow-md"
                                     : "border-gray-200 bg-white"
-                            }`}
+                                }`}
                         >
                             {plan.recommended && (
                                 <div className="inline-block bg-purple-500 text-white text-xs px-3 py-1 rounded mb-2">
@@ -246,9 +244,9 @@ const Subscription = () => {
                             <div className="mt-2 mb-4">
                                 <span className="text-3xl font-bold">₹{plan.price}</span>
                                 <span className="text-gray-500">
-                  {" "}
+                                    {" "}
                                     for {plan.credits} credits
-                </span>
+                                </span>
                             </div>
 
                             <ul className="space-y-3 mb-6">
@@ -263,11 +261,10 @@ const Subscription = () => {
                             <button
                                 disabled={processingPayment}
                                 onClick={() => handlePurchase(plan)}
-                                className={`w-full py-2 rounded-md font-medium ${
-                                    plan.recommended
+                                className={`w-full py-2 rounded-md font-medium ${plan.recommended
                                         ? "bg-purple-500 text-white hover:bg-purple-600"
                                         : "bg-white border border-purple-500 text-purple-500 hover:bg-purple-50"
-                                }`}
+                                    }`}
                             >
                                 {processingPayment ? (
                                     <div className="flex items-center justify-center gap-2">

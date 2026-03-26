@@ -18,6 +18,7 @@ import {
 import {apiEndpoints} from "../utill/apiEndpoint.js";
 import ConfirmationDialog from "../Components/ConfirmationDialogBox.jsx";
 import LinkShareModal from "../Components/LinkShareModal.jsx";
+import FilePreviewModal from "../Components/FilePreviewModal.jsx";
 
 
 
@@ -77,6 +78,14 @@ const Myfiles = () => {
         link: ""
     });
 
+    // Preview state
+    const [previewModal, setPreviewModal] = useState({
+        isOpen: false,
+        file: null,
+        previewUrl: null,
+        loading: false,
+    });
+
     const openShareModal = (fileId) => {
         const link = `${window.location.origin}/file/${fileId}`;
 
@@ -92,6 +101,35 @@ const Myfiles = () => {
             fileId: null,
             link: ""
         });
+    };
+
+    const handlePreview = async (file) => {
+        setPreviewModal({ isOpen: true, file, previewUrl: null, loading: true });
+        try {
+            const token = await getToken();
+            const response = await axios.get(
+                apiEndpoints.DOWNLOAD_FILE(file.id),
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                    responseType: "blob",
+                }
+            );
+            const contentType = response.headers["content-type"];
+            const blob = new Blob([response.data], { type: contentType });
+            const url = window.URL.createObjectURL(blob);
+            setPreviewModal((prev) => ({ ...prev, previewUrl: url, loading: false }));
+        } catch (err) {
+            console.error("Preview error:", err);
+            toast.error("Failed to load file preview");
+            setPreviewModal((prev) => ({ ...prev, loading: false }));
+        }
+    };
+
+    const closePreviewModal = () => {
+        if (previewModal.previewUrl) {
+            window.URL.revokeObjectURL(previewModal.previewUrl);
+        }
+        setPreviewModal({ isOpen: false, file: null, previewUrl: null, loading: false });
     };
 
     // fetching files
@@ -394,10 +432,13 @@ const Myfiles = () => {
                                             </button>
 
 
-                                            <Eye
-                                                size={18}
-                                                className="cursor-pointer hover:text-blue-500"
-                                            />
+                                            <button
+                                                onClick={() => handlePreview(file)}
+                                                className="hover:text-blue-500 transition"
+                                                title="Preview File"
+                                            >
+                                                <Eye size={18} className="cursor-pointer" />
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -417,6 +458,7 @@ const Myfiles = () => {
                                 onTogglePublic={toggelTopublic}
                                 onDelete={openDeleteConfirmation}
                                 onShare={openShareModal}
+                                onPreview={handlePreview}
                             />
                         ))}
                     </div>
@@ -438,6 +480,14 @@ const Myfiles = () => {
                     onClose={closeShareModal}
                     link={shareModal.link}
                     title="Share File"
+                />
+
+                <FilePreviewModal
+                    isOpen={previewModal.isOpen}
+                    onClose={closePreviewModal}
+                    file={previewModal.file}
+                    previewUrl={previewModal.previewUrl}
+                    loading={previewModal.loading}
                 />
             </div>
         </DashboardLayout>

@@ -26,7 +26,8 @@ const FileCard = ({ file,
                       onDownload,
                       onTogglePublic,
                       onDelete,
-                      onShare }) => {
+                      onShare,
+                      onPreview }) => {
     const [hovered, setHovered] = useState(false);
 
     // ✅ Detect file icon
@@ -119,18 +120,14 @@ const FileCard = ({ file,
                             </button>
                         )}
 
-                        {/* View File (Only if Public) */}
-                        {file.public && (
-                            <a
-                                href={`/file/${file.id}`}
-                                target="_blank"
-                                rel="noreferrer"
-                                title="View File"
-                                className="p-2 bg-white/90 rounded-full hover:bg-white transition text-blue-600"
-                            >
-                                <Eye size={18} />
-                            </a>
-                        )}
+                        {/* View File */}
+                        <button
+                            onClick={() => onPreview && onPreview(file)}
+                            title="Preview File"
+                            className="p-2 bg-white/90 rounded-full hover:bg-white transition text-blue-600"
+                        >
+                            <Eye size={18} />
+                        </button>
 
                         {/* Download */}
                         <button

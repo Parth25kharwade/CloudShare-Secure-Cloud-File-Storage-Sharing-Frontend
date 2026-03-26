@@ -1,4 +1,4 @@
-import dashboard from './Dashboard.avif';
+import dashboard from './dashboard.png';
 
 export const assets = {
     dashboard,
